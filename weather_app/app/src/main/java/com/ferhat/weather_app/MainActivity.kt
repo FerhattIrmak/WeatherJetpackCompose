@@ -3,6 +3,8 @@ package com.ferhat.weather_app
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,6 +13,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -70,7 +73,7 @@ fun WeatherScreen() {
         modifier = Modifier
             .fillMaxSize()
             .paint(
-                painterResource(id = R.drawable.bckmain),
+                painterResource(id = R.drawable.bckmain_),
                 contentScale = ContentScale.FillBounds
             )
     ) {
@@ -81,7 +84,20 @@ fun WeatherScreen() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
-            Spacer(modifier = Modifier.height(180.dp))
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxWidth()
+                    .height(340.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.icon2),
+                    contentDescription = "Weather Image",
+                    modifier = Modifier.fillMaxSize(),
+                    contentScale = ContentScale.Crop
+                )
+            }
+
             OutlinedTextField(
                 value = city,
                 onValueChange = { city = it },
@@ -100,9 +116,9 @@ fun WeatherScreen() {
             Spacer(modifier = Modifier.height(16.dp))
             Button(
                 onClick = { viewModel.fetchWeather(city, apiKey) },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF3D85C6))
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF6EA0B7))
             ) {
-                Text(text = "Check Weather")
+                Text(text = "Anlık Durumu Gör")
             }
             Spacer(modifier = Modifier.height(16.dp))
             weatherData?.let {
@@ -137,7 +153,6 @@ fun WeatherScreen() {
         }
     }
 }
-
 @Composable
 fun WeatherCard(label: String, value: String, icon: ImageVector) {
     Card(
